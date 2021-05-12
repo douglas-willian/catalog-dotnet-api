@@ -5,7 +5,8 @@ using catalog_dotnet_api.Entities;
 
 namespace catalog_dotnet_api.Repositories
 {
-  public class InMemItemsRepository
+
+  public class InMemItemsRepository : IItemsRepository
   {
     private readonly List<Item> items = new() // nao é necessário usar "new List<Item>()" 
     {
