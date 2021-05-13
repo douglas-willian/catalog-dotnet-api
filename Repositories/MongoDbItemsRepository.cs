@@ -5,14 +5,14 @@ using MongoDB.Driver;
 
 namespace catalog_dotnet_api.Repositories
 {
-  public class MondoDbItemRepository : IItemsRepository
+  public class MongoDbItemsRepository : IItemsRepository
   {
 
     private const string DATABASE_NAME = "Catalog";
     private const string COLLECTION_NAME = "items";
     private readonly IMongoCollection<Item> itemsCollection;
 
-    public MondoDbItemRepository(IMongoClient mongoClient)
+    public MongoDbItemsRepository(MongoClientBase mongoClient)
     {
       IMongoDatabase database = mongoClient.GetDatabase(DATABASE_NAME);
       itemsCollection = database.GetCollection<Item>(COLLECTION_NAME);
@@ -20,7 +20,7 @@ namespace catalog_dotnet_api.Repositories
 
     public void CreateItem(Item item)
     {
-      throw new NotImplementedException();
+      itemsCollection.InsertOne(item);
     }
 
     public void DeleteItem(Guid id)
