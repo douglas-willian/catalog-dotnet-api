@@ -1,12 +1,46 @@
+###
+
+# @name CREATE_ITEM
 POST https://localhost:5001/items
 content-type: application/json
 
 {
-    "name": "sample from vscode",
-    "price": 150
+    "name": "Sword",
+    "price": 780
 }
 
 ###
 
+# @name GET_ITEMS
 GET https://localhost:5001/items
 content-type: application/json
+
+###
+
+# @name GET_ITEMS_BY_ID
+GET https://localhost:5001/items/42c88df5-4f71-4f4f-9b12-c0069eb694bc
+content-type: application/json
+
+###
+
+# @name UPDATE_ITEM
+@id = 42c88df5-4f71-4f4f-9b12-c0069eb694bc
+PUT https://localhost:5001/items/{{id}}
+content-type: application/json
+
+{
+    "name": "Poison",
+    "price": 500
+}
+
+###
+
+# @name DELETE_ITEM
+@deleteId = 42c88df5-4f71-4f4f-9b12-c0069eb694bc
+PUT https://localhost:5001/items/{{deleteId}}
+content-type: application/json
+
+{
+    "name": "Poison",
+    "price": 500
+}

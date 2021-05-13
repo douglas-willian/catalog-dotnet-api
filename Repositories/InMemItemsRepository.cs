@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using catalog_dotnet_api.Entities;
 
 namespace catalog_dotnet_api.Repositories
 {
-
+  /// <summary>
+  /// Using Async Await here just for practicing purposes.
+  /// </summary>
   public class InMemItemsRepository : IItemsRepository
   {
     private readonly List<Item> items = new() // nao é necessário usar "new List<Item>()" 
@@ -15,24 +18,31 @@ namespace catalog_dotnet_api.Repositories
       new Item { Id = Guid.NewGuid(), Name = "Bronze Shield", Price = 18, CreatedDate = DateTimeOffset.UtcNow },
     };
 
-    public IEnumerable<Item> GetItems() => items;
-    public Item GetItem(Guid id) => items.Where(item => item.Id == id).SingleOrDefault();
-
-    public void CreateItem(Item item)
+    public async Task<IEnumerable<Item>> GetItems() => await Task.FromResult(items);
+    public async Task<Item> GetItem(Guid id)
     {
-      items.Add(item);
+      var item = items.Where(item => item.Id == id).SingleOrDefault();
+      return await Task.FromResult(item);
     }
 
-    public void UpdateItem(Item item)
+    public async Task CreateItem(Item item)
+    {
+      items.Add(item);
+      await Task.CompletedTask;
+    }
+
+    public async Task UpdateItem(Item item)
     {
       var index = items.FindIndex(existingItem => existingItem.Id == item.Id);
       items[index] = item;
+      await Task.CompletedTask;
     }
 
-    public void DeleteItem(Guid id)
+    public async Task DeleteItem(Guid id)
     {
       var index = items.FindIndex(existingItem => existingItem.Id == id);
       items.RemoveAt(index);
+      await Task.CompletedTask;
     }
   }
 }
