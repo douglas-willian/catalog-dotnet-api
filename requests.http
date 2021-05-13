@@ -1,0 +1,12 @@
+POST https://localhost:5001/items
+content-type: application/json
+
+{
+    "name": "sample from vscode",
+    "price": 150
+}
+
+###
+
+GET https://localhost:5001/items
+content-type: application/json
